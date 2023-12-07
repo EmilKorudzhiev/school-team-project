@@ -1,0 +1,33 @@
+CREATE TABLE Users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    date_of_birth DATE NOT NULL
+);
+
+
+CREATE TABLE MuscleGroups (
+    muscle_group_id SERIAL PRIMARY KEY,
+    name VARCHAR(50) UNIQUE NOT NULL
+);
+
+
+CREATE TABLE Exercises (
+    exercise_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT,
+    muscle_group_id INTEGER REFERENCES MuscleGroups(muscle_group_id) NOT NULL
+);
+
+
+CREATE TABLE Schedule (
+    schedule_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES Users(user_id) NOT NULL,
+    exercise_id INTEGER REFERENCES Exercises(exercise_id) NOT NULL,
+    workout_date DATE NOT NULL,
+    sets INTEGER NOT NULL,
+    repetitions INTEGER NOT NULL,
+    weight DECIMAL(5,2),
+    duration_minutes INTEGER
+);
