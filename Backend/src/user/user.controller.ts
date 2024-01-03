@@ -1,4 +1,4 @@
-import {Controller, Get, NotFoundException, Param} from '@nestjs/common';
+import { Controller, Get, NotFoundException, Param, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 
 @Controller('api/v1/user')
@@ -20,5 +20,15 @@ export class UserController {
     }
 
     return user;
+  }
+
+  @Post('register')
+  registerUser(@Body('username') username: string, @Body('password') password: string) {
+    return this.userService.registerUser(username, password);
+  }
+
+  @Post('login')
+  loginUser(@Body('username') username: string, @Body('password') password: string) {
+    return this.userService.loginUser(username, password);
   }
 }
